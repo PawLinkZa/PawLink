@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PayFast Checkout</title>
+</head>
+<body>
+    <h1>Checkout</h1>
+    <form action="https://sandbox.payfast.co.za/eng/process" method="POST">
+        <!-- PayFast Hidden Fields -->
+        <input type="hidden" name="merchant_id" value="10036200"> <!-- Your sandbox merchant ID -->
+        <input type="hidden" name="merchant_key" value="ztgkjo0djf02j"> <!-- Your sandbox merchant key -->
+        <input type="hidden" name="return_url" value="orderdetails.html"> <!-- Redirect URL on success -->
+        <input type="hidden" name="cancel_url" value="cancel.html"> <!-- Redirect URL on cancellation -->
+        <input type="hidden" name="notify_url" value="notify.php"> <!-- URL to receive IPN notifications -->
+        
+        <!-- Dynamic Fields -->
+        <input type="hidden" id="amount-field" name="amount" value=""> <!-- Order total -->
+        <input type="hidden" name="item_name" value="Your Cart Items"> <!-- Description of items -->
+        <input type="hidden" name="m_payment_id" value="UNIQUE_PAYMENT_ID"> <!-- Unique payment identifier -->
+        
+        <!-- Submit Button -->
+        <button type="submit">Pay Now</button>
+    </form>
+
+    <script>
+        // Load the order total from localStorage and update the amount field
+        const orderTotal = localStorage.getItem('orderTotal');
+        if (orderTotal) {
+            document.getElementById('amount-field').value = orderTotal;
+        } else {
+            alert('Order total not found! Returning to cart.');
+            window.location.href = 'cart.html'; // Redirect back to the cart page if no total
+        }
+    </script>
+</body>
+</html>

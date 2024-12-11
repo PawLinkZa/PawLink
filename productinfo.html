@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+
+    <!-- icons -->
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="javascript/shoppingcart.js"></script>
+
+    <title>Clothing Shop</title>
+
+    <style>
+        .nav__cart {
+            margin-left: 30px;
+        }
+
+        .section--product-page {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-page-images {
+            flex: 1 1 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        @media (min-width: 768px) {
+            .product-page-images {
+                flex: 1 1 40%;
+            }
+        }
+
+        .product-page-image {
+            max-width: 100%;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .product-page-thumbnail {
+            max-width: 80px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            border-radius: 8px;
+        }
+
+        .product-page-thumbnail:hover,
+        .product-page-thumbnail.active {
+            border-color: #007bff;
+        }
+
+        .product-page-info {
+            flex: 1 1 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .product-page-info {
+                flex: 1 1 50%;
+            }
+        }
+
+        .product-page-name {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .product-page-price {
+            font-size: 20px;
+            color: #2e8b57;
+        }
+
+        .product-page-phrase {
+            font-size: 16px;
+
+        }
+
+        .size-select, .color-select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .product-page-add {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        .product-page-add.enabled {
+            cursor: pointer;
+            opacity: 1;
+        }
+
+        .tabs {
+            margin: 20px 0;
+            border-top: 1px solid #ddd;
+        }
+
+        .tab {
+            margin: 20px 0;
+            cursor: pointer;
+            font-size: 18px;
+            padding: 10px;
+            border-bottom: 2px solid transparent;
+        }
+
+        .tab:hover, .tab.active {
+            border-bottom: 2px solid #007bff;
+        }
+
+        .tab-content {
+            display: none;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Reviews Section */
+        .reviews-list {
+            margin-top: 30px;
+            padding: 0 15px;
+            max-width: 100%;
+            margin-left: auto;
+            margin-right: auto;
+            width: 90%;
+        }
+
+        .review-card {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        .review-content {
+            flex: 1 1 70%;
+        }
+
+        .review-rating {
+            color: #FFD700;
+            font-size: 18px;
+        }
+
+        .review-title {
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .review-text {
+            color: #555;
+        }
+
+        .review-date {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 10px;
+        }
+
+        .review-author-info {
+            flex: 1 1 30%;
+            font-size: 14px;
+            color: #555;
+            border-left: 1px solid #ddd;
+            padding-left: 20px;
+        }
+
+        /* Title and Write Review Button Flex */
+        .reviews-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custm {
+            font-size: 30px;
+            margin: 0;
+            position: relative;
+            left: 67px;
+        }
+
+        .review-page-button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 4px;
+            text-decoration: none;
+            text-align: center;
+            position: relative;
+            right: 67px;
+        }
+
+        .review-page-button:hover {
+            background-color: #0056b3;
+        }
+
+        main {
+            margin-top: 100px;
+        }
+        .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.form-row {
+    display: flex;
+    gap: 20px;
+}
+
+.form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 5px;
+
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+    </style>
+</head>
+<body>
+
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="index.html" class="nav__logo">
+                Shop.
+            </a>
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">
+                            <i class="ri-home-line"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#new" class="nav__link">
+                            <i class="ri-price-tag-3-line"></i>
+                            <span>New</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#collection" class="nav__link">
+                            <i class="ri-compass-line"></i>
+                            <span>Collection</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link active-link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="accountinfo.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="cart.html" class="nav__link">
+                            <i class="ph-shopping-cart-bold"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Theme change button -->
+            <i class="ri-moon-line change-theme" id="theme-button"></i>
+        </nav>
+    </header>
+
+    <main>
+        <section class="section--product-page">
+            <!-- Product Images -->
+            <div class="product-page-images">
+                <img id="main-image" class="product-page-image" src="https://via.placeholder.com/400" alt="Sample Product">
+                <div>
+                    <img class="product-page-thumbnail" src="https://via.placeholder.com/400" alt="Thumbnail">
+                    <img class="product-page-thumbnail" src="https://via.placeholder.com/400" alt="Thumbnail">
+                    <img class="product-page-thumbnail" src="https://via.placeholder.com/400" alt="Thumbnail">
+                </div>
+            </div>
+
+
+
+  
+        <!-- Product Info -->
+        <div class="product-page-info">
+            <h3 id="product-name" class="product-page-name">Sample Product</h3>
+            <p id="product-price" class="product-page-price">R 999.99</p>
+            <p id="product-phrase" class="product-page-phrase">A brief description of the product goes here.</p>
+    
+
+            <div class="form-container">
+                <!-- Owner's Name and Contact -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="pet-name">Pets Name: (Required)</label>
+                        <input id="pet-name" type="text" placeholder="Pets Name (Required)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-number">Contact Number: (Optional)</label>
+                        <input id="contact-number" type="tel" placeholder="Contact number (optional)" />
+                    </div>
+                </div>
+            
+                <!-- Address and Country -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="owner-address">Address: (Required) </label>
+                        <input id="owner-address" type="text" placeholder="Address (required)" />
+                    </div>
+                    <div class="form-group">
+                        <label for="owner-country">Country: (Required)</label>
+                        <input id="owner-country" type="text" placeholder="Country (required)" />
+                    </div>
+                </div>
+            
+                <!-- Size and Color Selectors -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="size-select">Select Size: (Required)</label>
+                        <select id="size-select" class="size-select">
+                            <option value="">-- Select Size --</option>
+                            <option value="small">Small:</option>
+                            <option value="medium">Medium:</option>
+                            <option value="large">Large:</option>
+                            <option value="extra-large">Extra Large:</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="color-select">Select Color: (Required)</label>
+                        <select id="color-select" class="color-select">
+                            <option value="">-- Select Color --</option>
+                            <option value="red">Black(Base) And Red(Text)</option>
+                            <option value="blue">Black(Base) And White(Text)</option>
+                            <option value="green">Black(Base) And Orange(Text)</option>
+                            <option value="green">White(Base) And Orange(Text)</option>
+                            <option value="green">White(Base) And Red(Text)</option>
+                            <option value="green">White(Base) And Black(Text)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+    
+            <!-- Add to Cart Button -->
+            <button id="add-to-cart" class="product-page-add" disabled>Add to Cart</button>
+          </div>
+        </section>
+
+        <!-- Product Reviews -->
+        <section class="reviews-section">
+            <div class="reviews-header">
+                <h1 class="custm">Customer Reviews</h1>
+                <a href="write-review.html" class="review-page-button">Write Review</a>
+            </div>
+
+            <div class="reviews-list">
+                <!-- Reviews will be added here dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <script>
+        const products = {
+            "123": {
+                name: "Tag",
+                price: "R 1",
+                description: "A rugged mountain bike perfect for off-road adventures.",
+                images: [
+           
+                    "https://via.placeholder.com/400/00FF00",
+                    "https://via.placeholder.com/400/FF0000"
+                ],
+                reviews: [
+                    {
+                        rating: 1,
+                        title: "Great Bike!",
+                        text: "This bike has been amazing for my off-road trips. Highly recommend!",
+                        date: "January 10, 2024",
+                        author: "John Doe",
+                        verified: true
+                    },
+                    {
+                        rating: 4,
+                        title: "Solid performance",
+                        text: "Really good performance, but could use better tires for rough terrain.",
+                        date: "January 15, 2024",
+                        author: "Jane Smith",
+                        verified: true
+                    },
+                    {
+                        rating: 4,
+                        title: "Solid performance",
+                        text: "Really good performance, but could use better tires for rough terrain.",
+                        date: "January 15, 2024",
+                        author: "Jane Smith",
+                        verified: true
+                    }
+                ]
+            },
+            "456": {
+                name: "Road Bike",
+                price: "R 1799.99",
+                description: "A fast and lightweight road bike for the serious cyclist.",
+                images: [
+                    "https://via.placeholder.com/400/FF0000",
+                    "https://via.placeholder.com/400/FFFF00",
+                    "https://via.placeholder.com/400/000000"
+                ],
+                reviews: [
+                    {
+                        rating: 4,
+                        title: "Fast and lightweight",
+                        text: "This bike is super fast and light. Great for long-distance rides.",
+                        date: "January 18, 2024",
+                        author: "Tom Lee",
+                        verified: false
+                    }
+                ]
+            }
+        };
+
+        const productId = getQueryParam("productId");
+        const product = products[productId];
+
+        if (product) {
+            document.getElementById('product-name').textContent = product.name;
+            document.getElementById('product-price').textContent = product.price;
+            document.getElementById('product-phrase').textContent = product.description;
+            
+            const thumbnails = document.querySelectorAll('.product-page-thumbnail');
+            const mainImage = document.getElementById('main-image');
+            
+            mainImage.src = product.images[0];
+            thumbnails.forEach((thumbnail, index) => {
+                if (product.images[index]) {
+                    thumbnail.src = product.images[index];
+                    thumbnail.addEventListener('click', () => {
+                        mainImage.src = thumbnail.src;
+                    });
+                }
+            });
+
+            // Render Reviews
+            const reviewsList = document.querySelector('.reviews-list');
+            product.reviews.forEach(review => {
+                const reviewCard = document.createElement('div');
+                reviewCard.classList.add('review-card');
+                
+                reviewCard.innerHTML = `
+                    <div class="review-content">
+                        <div class="review-rating">${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</div>
+                        <p class="review-title">${review.title}</p>
+                        <p class="review-text">${review.text}</p>
+                        <p class="review-date">${review.date}</p>
+                    </div>
+                    <div class="review-author-info">
+                        <p><strong>${review.author}</strong> ${review.verified ? "(Verified Buyer)" : ""}</p>
+                    </div>
+                `;
+                reviewsList.appendChild(reviewCard);
+            });
+        } else {
+            document.body.innerHTML = "<h1>Product Not Found</h1>";
+        }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+    </script>
+
+<script>
+    const sizeSelect = document.getElementById('size-select');
+const colorSelect = document.getElementById('color-select');
+const addressInput = document.getElementById('owner-address');
+const countryInput = document.getElementById('owner-country');
+const cityInput = document.getElementById('owner-city');
+const petsInput = document.getElementById('pet-name');
+const addToCartButton = document.getElementById('add-to-cart');
+
+function updateAddToCartButton() {
+    // Check if all required fields have values
+    if (sizeSelect.value && colorSelect.value && addressInput.value.trim() && countryInput.value.trim() && petsInput.value.trim()) {
+        addToCartButton.disabled = false;
+        addToCartButton.classList.add('enabled');
+    } else {
+        addToCartButton.disabled = true;
+        addToCartButton.classList.remove('enabled');
+    }
+}
+
+// Add event listeners to check fields dynamically
+sizeSelect.addEventListener('change', updateAddToCartButton);
+colorSelect.addEventListener('change', updateAddToCartButton);
+addressInput.addEventListener('input', updateAddToCartButton);
+countryInput.addEventListener('input', updateAddToCartButton);
+petsInput.addEventListener('input', updateAddToCartButton);
+
+
+  </script>
+
+  <script>// Add to Cart Button Logic
+    addToCartButton.addEventListener('click', () => {
+        // Collect product details
+        const productDetails = {
+            productId: productId, // Use productId from earlier
+            productName: product?.name || "Unknown Product",
+            productPrice: product?.price || "Unknown Price",
+            size: sizeSelect.value,
+            color: colorSelect.value,
+            address: addressInput.value.trim(),
+            country: countryInput.value.trim(),
+            petsName: petsInput.value.trim(),
+            contactNumber: document.getElementById('contact-number').value.trim()
+        };
+    
+        // Retrieve the existing cart from local storage or initialize it
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    
+        // Add the new product to the cart
+        cart.push(productDetails);
+    
+        // Save the updated cart back to local storage
+        localStorage.setItem('cart', JSON.stringify(cart));
+    
+        // Provide feedback to the user
+        alert('Product added to cart!');
+        console.log("Current cart contents:", cart); // For debugging
+    });
+    </script>
+
+  
+  
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+        
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== SWIPER JS ===============-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+</body>
+</html>

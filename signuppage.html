@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="images/favicon/site.webmanifest" />
+  <script src="https://unpkg.com/phosphor-icons"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <title>Rad Bikes | Sign Up</title>
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .message-form, .signup-form-container {
+      background-color: #ffffff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    h2 {
+      font-size: 2rem;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border 0.3s ease;
+    }
+
+    input:focus {
+      border-color: #007bff;
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      font-size: 1.2rem;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      text-align: center;
+      margin-top: 20px;
+      font-size: 1rem;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+    }
+
+    .hero-text {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      color: #fff;
+      font-size: 2rem;
+    }
+
+    .hero-header {
+      font-weight: 700;
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    .hero-subheader {
+      font-size: 1.2rem;
+      font-weight: 300;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+    }
+
+    .footer-outer {
+      margin-top: 40px;
+    }
+
+    .footer-inner {
+      padding: 10px;
+    }
+
+    .column-logo a {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: white;
+      text-decoration: none;
+    }
+
+    .column-logo a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="main-nav-wrapper">
+      <a href="index.html#" class="logo"><span class="rad">R<span class="a">a</span> &nbsp;D</span>BIKES</a>
+      <nav class="main-nav"></nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="section--hero">
+      <img src="images/home/hero3.jpg" class="hero-img" alt="man on mountain bike trail" />
+      <div class="hero-text">
+        <h1 class="hero-header">JOIN THE RAD RIDERS CLUB</h1>
+        <p class="hero-subheader">Sign up to get access to exclusive offers, sales, and more!</p>
+      </div>
+    </section>
+
+    <section class="section--signup">
+      <div class="signup-form-container">
+        <h2>Sign Up</h2>
+        <form id="signup-form" class="signup-form">
+          <input type="email" id="email" placeholder="Enter your email" required />
+          <input type="password" id="password" placeholder="Enter your password" required />
+          <button type="submit" class="signup-btn">Sign Up</button>
+        </form>
+        <p class="error-message" id="error-message"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-outer">
+      <div class="footer-inner">
+        <div class="column-wrapper column-logo">
+          <a href="#" class="logo"><span class="rad">R<span class="a">a</span> &nbsp;D</span>BIKES</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module">
+    // Importing necessary Firebase modules
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-auth.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/9.0.0/firebase-firestore.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCF_KgnxNfoslRddlCPmXa4ZcxBrPcVapA",
+      authDomain: "protoprint3d-bfb83.firebaseapp.com",
+      projectId: "protoprint3d-bfb83",
+      storageBucket: "protoprint3d-bfb83.appspot.com",
+      messagingSenderId: "942660716898",
+      appId: "1:942660716898:web:574d6e2c32671fee52443b",
+      measurementId: "G-7PC05J1LR9"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Get the sign up form and error message DOM elements
+    const signupForm = document.getElementById("signup-form");
+    const emailInput = document.getElementById("email");
+    const passwordInput = document.getElementById("password");
+    const errorMessage = document.getElementById("error-message");
+
+    // Event listener for form submission
+    signupForm.addEventListener("submit", function (e) {
+      e.preventDefault(); // Prevent form submission
+
+      const email = emailInput.value;
+      const password = passwordInput.value;
+
+      // Create a new user with email and password
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          const user = userCredential.user;
+          
+          // Save user data to Firestore
+          addDoc(collection(db, "users"), {
+            email: user.email,
+            uid: user.uid,
+            signupDate: new Date()
+          })
+          .then(() => {
+            alert("Welcome to Rad Bikes!");
+            window.location.href = "index.html"; // Redirect to home page after successful sign-up
+          })
+          .catch((error) => {
+            console.error("Error adding document to Firestore: ", error);
+            errorMessage.textContent = `Error saving data to Firestore: ${error.message}`;
+          });
+        })
+        .catch((error) => {
+          const errorMessageText = error.message;
+          errorMessage.textContent = `Error: ${errorMessageText}`; // Display error message
+        });
+    });
+  </script>
+          <!--========== SCROLL UP ==========-->
+          <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+        
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== SWIPER JS ===============-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="images/favicon/site.webmanifest" />
+
+  <!-- Icons -->
+  <script src="https://unpkg.com/phosphor-icons"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+
+  <!-- Style Sheets -->
+  <link rel="stylesheet" href="css/style.css" />
+
+  <!-- Scripts -->
+  <script defer src="javascript/slider.js"></script>
+  <script defer src="javascript/productData.js"></script>
+  <script defer src="javascript/shoppingcart.js"></script>
+  <script defer src="javascript/shop.js"></script>
+  <script defer src="javascript/navigateHome.js"></script>
+  <script defer src="javascript/main.js"></script>
+  <script src="assets/js/productData.js"></script>
+
+
+
+
+  <style>
+
+    .body {
+        display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+
+      position: relative; /* Ensure form layers on top */
+        
+    }
+
+
+
+
+
+
+    /* Center form on the page */
+    .section--shipping-info {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+
+      position: relative; /* Ensure form layers on top */
+    }
+
+    .shipping-form {
+      width: 100%;
+      max-width: 600px;
+
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      position: relative; /* Ensure the form stays on top */
+      z-index: 10; /* Bring the form above any background image */
+    }
+
+    .form-header {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+
+    .shipping-info-text {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: 5px;
+    }
+
+    .form-group input,
+    .form-group select {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group select {
+      cursor: pointer;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: #5cb85c;
+      outline: none;
+    }
+
+    .submit-btn {
+      width: 100%;
+      padding: 12px;
+      font-size: 18px;
+      background-color: #5cb85c;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .submit-btn:hover {
+      background-color: #4cae4c;
+    }
+
+    /* Footer styling */
+    footer {
+      position: relative;
+      z-index: 0;
+    }
+
+    @media screen and (max-width: 768px) {
+      .section--shipping-info {
+        padding: 40px 20px;
+      }
+
+      .shipping-form {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="main-nav-wrapper">
+      <a href="#" class="logo">
+
+      </a>
+      <button class="mobile-nav-btn-wrapper">
+        <div class="mobile-nav-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+
+      <nav class="main-nav">
+      </nav>
+    </div>
+    <div class="cart-summary">
+      <div class="summary-items">
+        <!-- Dynamically populated cart items will go here -->
+      </div>
+      <div class="subtotal-wrapper">
+        <div class="subtotal">
+          <div class="subtotal-text">SUBTOTAL</div>
+          <div class="subtotal-amount">R 0.00</div>
+        </div>
+        <button class="view-cart-btn">VIEW CART & CHECKOUT</button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="body">
+      <div class="shipping-form">
+        <h2 class="form-header">Shipping Information</h2>
+
+        <form id="shipping-form" action="#" method="POST">
+          <div class="form-group">
+            <label for="name">Your Full Name</label>
+            <input type="text" id="name" name="name" placeholder="Enter your full name" required />
+          </div>
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email address" required />
+          </div>
+          <div class="form-group">
+            <label for="address">Shipping Address</label>
+            <input type="text" id="address" name="address" placeholder="Enter your address" required />
+          </div>
+          <div class="form-group">
+            <label for="city">City</label>
+            <input type="text" id="city" name="city" placeholder="Enter your city" required />
+          </div>
+          <div class="form-group">
+            <label for="postal-code">Postal Code</label>
+            <input type="text" id="postal-code" name="postal-code" placeholder="Enter your postal code" required />
+          </div>
+          <div class="form-group">
+            <label for="country">Country</label>
+            <select id="country" name="country" required>
+            <option value="South Africa">South Africa</option>
+              <option value="USA">USA</option>              <option value="Canada">Canada</option>
+              <option value="UK">United Kingdom</option>
+              <option value="Australia">Australia</option>
+              <option value="USA">USA</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="contact">Contact Number</label>
+            <input type="tel" id="contact" name="contact" placeholder="Enter your contact number" required />
+          </div>
+
+          <button type="submit" class="submit-btn">Submit Shipping Info</button>
+          
+        </form>
+      </div>
+    </section>
+  </main>
+
+ 
+
+  <!-- Firebase Integration -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+    import { setDoc, doc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+ 
+    const firebaseConfig = {
+                apiKey: "AIzaSyBXmhD-t6oS6vOe_CAFc9DUCoP0EmS_4Dk",
+                authDomain: "pawlink-4136f.firebaseapp.com",
+                projectId: "pawlink-4136f",
+                storageBucket: "pawlink-4136f.firebasestorage.app",
+                messagingSenderId: "87083774223",
+                appId: "1:87083774223:web:50b19b7a6e2831dde98e7a",
+                measurementId: "G-8VE5KFBPLD"
+            };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+    
+
+    // Submit form data to Firestore
+    document.getElementById('shipping-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+      const city = document.getElementById('city').value;
+      const postalCode = document.getElementById('postal-code').value;
+      const country = document.getElementById('country').value;
+      const contact = document.getElementById('contact').value;
+
+      // Retrieve cart items from localStorage
+      const cartItemNames = JSON.parse(localStorage.getItem("cartItemNames")) || [];
+
+      if (name && email && address && city && postalCode && country && contact) {
+        try {
+
+            const userEmailNormalized = email.replace(/\./g, ","); 
+            const userDocRef = doc(db, "shippinginfo", userEmailNormalized);
+          // Add shipping info and cart items to Firestore
+          await setDoc(userDocRef, {
+            name: name,
+            email: email,
+            address: address,
+            city: city,
+            postalCode: postalCode,
+            country: country,
+            contact: contact,
+            cartItems: cartItemNames,
+            timestamp: new Date()
+          });
+          
+          alert("Your shipping info has been submitted successfully!");
+          window.location.href = "success.html";
+          document.getElementById('shipping-form').reset(); // Clear form after submission
+        } catch (e) {
+          console.error("Error adding document: ", e);
+          alert("Error: Something went wrong. Please try again.");
+        }
+      } else {
+        alert("Please fill out all fields.");
+      }
+    });
+  </script>
+
+   <!--========== SCROLL UP ==========-->
+   <a href="#" class="scrollup" id="scroll-up">
+    <i class="ri-arrow-up-line"></i>
+</a>
+
+<!--=============== SCROLLREVEAL ===============-->
+<script src="assets/js/scrollreveal.min.js"></script>
+
+<!--=============== SWIPER JS ===============-->
+<script src="assets/js/swiper-bundle.min.js"></script>
+
+<!--=============== MAIN JS ===============-->
+<script src="assets/js/main.js"></script>
+</body>
+
+</html>

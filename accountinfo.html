@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+
+
+
+    <!-- icons -->
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap"
+    rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="javascript/shoppingcart.js"></script>
+
+    <title>Clothing Shop</title>
+
+<style>
+
+.nav__cart {
+    margin-left: 30px;
+}
+
+        .info-container {
+            display: flex;
+            height: 100vh;
+        }
+        
+        .sidebar {
+            width: 250px;
+            color: #000000;
+            padding: 20px;
+        }
+        .sidebar h2 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 20px;
+        }
+        .sidebar ul li {
+            margin-bottom: 15px;
+        }
+        .sidebar ul li button {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            color: hsl(220, 8%, 65%);;
+        }
+        .sidebar ul li button:hover {
+            text-decoration: underline;
+        }
+        .main-content {
+            flex: 1;
+            padding: 20px;
+        }
+        .form-section {
+            display: none;
+        }
+        .form-section.active {
+            display: block;
+        }
+        form label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        form input, form select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        body {
+            margin-top: 80px;
+        }
+        #accountForm, #changePasswordForm {
+            padding: 20px;
+            border-radius: 8px;
+            
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #account h2, #changePasswordForm h3 {
+            color: #1667c4;
+            font-weight: 600;
+        }
+
+        h2 {
+            color: #1667c4;
+            font-weight: 600;     
+        }
+
+        #accountForm {
+            margin-bottom: 20px;
+        }
+
+        .btnshipping {
+            display: inline-block;
+    background: linear-gradient(135deg, #4a90e2, #357ab8);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;
+        }
+
+        .btnpass {
+            display: inline-block;
+    background: linear-gradient(135deg, #4a90e2, #357ab8);
+    color: #fff;
+    border: none;
+    padding: 12px 20px;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 25px;
+    box-shadow: 0 5px 15px rgba(74, 144, 226, 0.3);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    text-transform: uppercase;     
+        }
+
+</style>
+
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+
+
+            <a href="index.html" class="nav__logo">
+                Shop.
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">
+                            <i class="ri-home-line"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="index.html#new" class="nav__link">
+                            <i class="ri-price-tag-3-line"></i>
+                            <span>New</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="index.html#collection" class="nav__link">
+                            <i class="ri-compass-line"></i>
+                            <span>Collection</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="accountinfo.html" class="nav__link  active-link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="cart.html" class="nav__link">
+                            <i class="ph-shopping-cart-bold"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Theme change button -->
+            <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+
+        </nav>
+    </header>
+
+
+<body>
+
+
+
+
+
+
+
+
+    <div class="info-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <h2>Options</h2>
+            <ul>
+                <li><button onclick="showSection('address')">Address</button></li>
+                <li><button onclick="showSection('orders')">Orders</button></li>
+                <li><button onclick="showSection('account')">Account Info</button></li>
+            </ul>
+        </aside>
+
+        
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Address Section -->
+            <div id="address" class="form-section active">
+                <h2>Address</h2>
+                <form id="changePasswordForm">
+                    <label for="Email">Current Email</label>
+                    <input type="email" id="email" placeholder="Enter your current Email">
+                    <label for="phone">Current Cell Number</label>
+                    <input type="Number" id="Number" placeholder="Enter your current Number">
+                    <label for="Full Name">Full Name</label>
+                    <input type="Full Name" id="Full Name" placeholder="Enter your Full Name">
+
+
+                    <label for="Address">Enter Address</label>
+                    <input type="Address" id="Address" placeholder="Enter your Address">
+
+
+
+
+                    <label for="Country">Country</label>
+                    <input type="Country" id="Country" placeholder="Enter Your Country">
+                    <label for="City">City</label>
+                    <input type="City" id="City" placeholder="Enter Your City">
+                    <label for="Code">Postal Code</label>
+                    <input type="Code" id="Code" placeholder="Postal Code">
+                    <button type="button" id="saveShippingButton" class="btnshipping">Save Shipping Info</button>
+
+                </form>
+            </div>
+
+            <!-- Orders Section -->
+            <div id="orders" class="form-section">
+                <h2>Orders</h2>
+                <p>Your recent orders will appear here.</p>
+                
+            </div>
+
+<!-- Account Info Section -->
+<div id="account" class="form-section">
+<h2>Account Info</h2>
+<form id="changePasswordForm" onsubmit="return false;">  <!-- Prevent form submission -->
+    <label for="currentEmail">Current Email</label>
+    <input type="email" id="currentEmail" placeholder="Current Email" readonly>
+    
+    <button id="logoutBtn" class="btnpass">Logout</button>
+</form>
+</div>
+
+        </div>
+    </div>
+
+    <script>
+        // Show and hide form sections
+        function showSection(sectionId) {
+            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Handle logout functionality
+        document.getElementById('logoutBtn').addEventListener('click', () => {
+            localStorage.setItem('loggedIn', 'false'); // Set the loggedIn status to false
+            window.location.href = 'index.html'; // Redirect to index.html
+        });
+    </script>
+
+    
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.form-section').forEach(section => section.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        function saveForm(formId) {
+            const form = document.getElementById(formId);
+            console.log('Form saved:', form);
+            alert('Form saved successfully!');
+        }
+
+        function saveOrders() {
+            alert('Orders saved successfully!');
+        }
+
+        function changePassword() {
+            alert('Password changed successfully!');
+        }
+    </script>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        
+        // Firebase Configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXmhD-t6oS6vOe_CAFc9DUCoP0EmS_4Dk",
+            authDomain: "pawlink-4136f.firebaseapp.com",
+            projectId: "pawlink-4136f",
+            storageBucket: "pawlink-4136f.firebasestorage.app",
+            messagingSenderId: "87083774223",
+            appId: "1:87083774223:web:50b19b7a6e2831dde98e7a",
+            measurementId: "G-8VE5KFBPLD"
+        };
+        
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        
+        // Listen for changes to the user's authentication state
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                console.log("User is signed in:", user);
+                // Fetch the shipping info for the current user
+                fetchShippingInfo(user);
+            } else {
+                console.log("No user is signed in.");
+            }
+        });
+        
+        // Fetch the shipping info for the current user from Firestore
+        async function fetchShippingInfo(user) {
+            const userEmailNormalized = user.email.toLowerCase().replace(/\./g, ","); // Normalize the email (replace dots with commas for Firestore compatibility)
+            const userDocRef = doc(db, "shippingInfo", userEmailNormalized);
+            
+            try {
+                const docSnap = await getDoc(userDocRef);
+                if (docSnap.exists()) {
+                    // Display the shipping info in the form
+                    const shippingData = docSnap.data();
+                    document.getElementById('email').value = shippingData.email;
+                    document.getElementById('Number').value = shippingData.phoneNumber;
+                    document.getElementById('Full Name').value = shippingData.fullName;
+                    document.getElementById('Address').value = shippingData.address;
+                    document.getElementById('Country').value = shippingData.country;
+                    document.getElementById('City').value = shippingData.city;
+                    document.getElementById('Code').value = shippingData.postalCode;
+                } else {
+                    console.log("No shipping info found for this user.");
+                }
+            } catch (e) {
+                console.error("Error fetching shipping info: ", e);
+            }
+        }
+        
+        // Event listener to save shipping info when the button is clicked
+        document.getElementById("saveShippingButton").addEventListener("click", Shippinginfo);
+        
+        async function Shippinginfo() {
+// Use the authenticated user's email for saving
+const user = auth.currentUser; // Get the authenticated user
+
+if (!user) {
+    alert('No user is signed in!');
+    console.log('No user signed in.');
+    return; // Exit if no user is signed in
+}
+
+const email = user.email.toLowerCase();  // Get the logged-in user's email
+const phoneNumber = document.getElementById('Number').value;
+const fullName = document.getElementById('Full Name').value;
+const address = document.getElementById('Address').value.trim();  // Trim the address
+const country = document.getElementById('Country').value;
+const city = document.getElementById('City').value;
+const postalCode = document.getElementById('Code').value;
+
+// Log values for debugging
+console.log('Email:', email);
+console.log('Phone Number:', phoneNumber);
+console.log('Full Name:', fullName);
+console.log('Address:', address);
+console.log('Country:', country);
+console.log('City:', city);
+console.log('Postal Code:', postalCode);
+
+// Validate all fields to ensure no undefined or empty values
+if (!email || !phoneNumber || !fullName || !address || !country || !city || !postalCode) {
+    alert('Please fill in all fields.');
+    console.log('One or more fields are missing.');
+    return; // Stop execution if any field is missing
+}
+
+// Additional validation for address to ensure it's not empty or just spaces
+if (address.length < 5) {
+    alert('Please enter a valid address (at least 5 characters).');
+    console.log('Address is too short.');
+    return;
+}
+
+try {
+    // Normalize the email for Firestore (replace dots with commas for Firestore compatibility)
+    const userEmailNormalized = email.replace(/\./g, ","); 
+    const userDocRef = doc(db, "users", userEmailNormalized);
+
+    // Save shipping info with the user's email as the document ID
+    await setDoc(userDocRef, {
+        email: email,
+        phoneNumber: phoneNumber,
+        fullName: fullName,
+        address: address,
+        country: country,
+        city: city,
+        postalCode: postalCode,
+        userId: user.uid,  // Save user ID for identification
+        timestamp: new Date()
+    });
+
+    alert('Shipping info saved successfully!');
+} catch (e) {
+    console.error("Error adding document: ", e);
+    alert('Failed to save shipping info.');
+}
+}
+
+// Listen for changes to the user's authentication state
+onAuthStateChanged(auth, (user) => {
+if (user) {
+    console.log("User is signed in:", user);
+    // Display the user's email in the Account Info section
+    document.getElementById('currentEmail').value = user.email; // Set the email in the input field
+    fetchShippingInfo(user); // Fetch shipping info if needed
+} else {
+    console.log("No user is signed in.");
+    // Optionally, you can clear the email field if no user is signed in
+    document.getElementById('currentEmail').value = ''; 
+}
+});
+
+
+    </script>
+    
+
+
+
+
+
+
+    
+    
+    
+    
+    
+
+
+
+
+
+
+
+
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+        
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== SWIPER JS ===============-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+    </body>
+</html>

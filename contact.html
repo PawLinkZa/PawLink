@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+  
+  
+  
+    <!-- icons -->
+    <script src="https://unpkg.com/phosphor-icons"></script>
+  
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap"
+      rel="stylesheet" />
+  
+  
+  
+  
+
+
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="javascript/shoppingcart.js"></script>
+
+    <title>Clothing Shop</title>
+
+<style>
+
+.nav__cart {
+    margin-left: 30px;
+}
+
+
+.container {
+      width: 100%;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .message-form {
+
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      padding: 30px;
+      margin-top: 50px;
+    }
+
+    .sectionHead {
+      font-size: 2rem;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    input, textarea {
+      width: 100%;
+      padding: 15px;
+      margin-bottom: 15px;
+      border: 2px solid #ddd;
+      border-radius: 5px;
+      font-size: 1rem;
+      outline: none;
+      box-sizing: border-box;
+      transition: border 0.3s ease;
+    }
+
+    input:focus, textarea:focus {
+      border-color: #007bff;
+    }
+
+    input[type="submit"] {
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+
+</style>
+
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+
+
+            <a href="#" class="nav__logo">
+                Shop.
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#home" class="nav__link active-link">
+                            <i class="ri-home-line"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="#new" class="nav__link">
+                            <i class="ri-price-tag-3-line"></i>
+                            <span>New</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="#collection" class="nav__link">
+                            <i class="ri-compass-line"></i>
+                            <span>Collection</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="accountinfo.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#products" class="nav__link">
+                            <i class="ph-shopping-cart-bold"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Theme change button -->
+            <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+
+        </nav>
+    </header>
+
+    <!-- Message Form Section -->
+    <section class="message-form text-center">
+      <div class="container">
+        <h2 class="sectionHead">Send Us a Message</h2>
+        <form id="contact-form">
+          <input type="text" name="name" id="name" placeholder="Your Name" required>
+          <input type="email" name="email" id="email" placeholder="Your Email" required>
+          <input type="text" name="subject" id="subject" placeholder="Subject" required>
+          <textarea name="message" id="message" placeholder="Your Message" rows="6" required></textarea>
+          <input type="submit" value="Send Message">
+        </form>
+      </div>
+    </section>
+  </main>
+
+ 
+
+  <script type="module">
+    // Firebase SDK
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+    import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+    import { getAuth, signOut } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+    // Firebase configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyCF_KgnxNfoslRddlCPmXa4ZcxBrPcVapA",
+        authDomain: "protoprint3d-bfb83.firebaseapp.com",
+        projectId: "protoprint3d-bfb83",
+        storageBucket: "protoprint3d-bfb83.appspot.com",
+        messagingSenderId: "942660716898",
+        appId: "1:942660716898:web:574d6e2c32671fee52443b",
+        measurementId: "G-7PC05J1LR9"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Capture form data and save it to Firestore
+    document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('name').value;
+        const email = document.getElementById('email').value;
+        const subject = document.getElementById('subject').value;
+        const message = document.getElementById('message').value;
+
+        if (name && email && subject && message) {
+            try {
+                // Add document to Firestore "contacts" collection
+                const docRef = await addDoc(collection(db, "RadBikescontacts"), {
+                    name: name,
+                    email: email,
+                    subject: subject,
+                    message: message,
+                    timestamp: new Date()
+                });
+                alert("Your message has been sent successfully!");
+                document.getElementById('contact-form').reset(); // Clear form after submission
+            } catch (e) {
+                console.error("Error adding document: ", e);
+                alert("Error: Something went wrong. Please try again.");
+            }
+        } else {
+            alert("Please fill out all fields.");
+        }
+    });
+  </script>
+
+
+
+
+
+
+        <!--==================== FOOTER ====================-->
+        <footer class="footer section">
+            <div class="footer__container container grid">
+                <div>
+                    <a href="#" class="footer__logo">
+                        Shop.
+                    </a>
+                    
+                    <p class="footer__description">
+                        Committed to bringing you the <br> 
+                        best clothing from popular <br>
+                        brands.
+                    </p>
+                </div>
+
+                <div class="footer__content">
+                    <div>
+                        <h3 class="footer__title">
+                            Company
+                        </h3>
+
+                        <ul class="footer__links">
+                            <li>
+                                <a href="#" class="footer__link">Shop</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer__link">Category</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer__link">Contact info</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        <h3 class="footer__title">
+                            Blog
+                        </h3>
+
+                        <ul class="footer__links">
+                            <li>
+                                <a href="#" class="footer__link">Events</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer__link">Popular news</a>
+                            </li>
+                            <li>
+                                <a href="#" class="footer__link">Recent news</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                       
+                    </div>
+
+                    <div>
+                        <h3 class="footer__title">
+                            Contact us
+                        </h3>
+
+                        <ul class="footer__social">
+                            <!-- Insert your name from your facebook page -->
+                            <a href="https://www.facebook.com/" target="_blank" class="footer__social-link">
+                                <i class="ri-facebook-fill"></i>
+                            </a>
+                            <!-- Insert your name from your instagram page -->
+                            <a href="https://www.instagram.com/" target="_blank" class="footer__social-link">
+                                <i class="ri-instagram-line"></i>
+                            </a>
+
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer__info container">
+                <span class="footer__copy">
+                    &#169; Copyright. All rigths reserved
+                </span>
+
+                <a href="#" class="footer__privacy">
+                    Terms & Conditions
+                </a>
+            </div>
+        </footer>
+
+        <!--========== SCROLL UP ==========-->
+        <a href="#" class="scrollup" id="scroll-up">
+            <i class="ri-arrow-up-line"></i>
+        </a>
+        
+        <!--=============== SCROLLREVEAL ===============-->
+        <script src="assets/js/scrollreveal.min.js"></script>
+
+        <!--=============== SWIPER JS ===============-->
+        <script src="assets/js/swiper-bundle.min.js"></script>
+
+        <!--=============== MAIN JS ===============-->
+        <script src="assets/js/main.js"></script>
+
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm
+    </body>
+</html>

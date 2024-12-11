@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="javascript/shoppingcart.js"></script>
+    <title>Clothing Shop</title>
+
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Center the login form */
+        .login-container {
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Title */
+        .login-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        /* Input Fields */
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #00ffcc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #00ffcc;
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1dffbb;
+        }
+
+        /* Error Message */
+        .error {
+            color: red;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Links */
+        p a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Sign-out Button */
+        #signOutBtn {
+            display: none;
+            background-color: #ff4444;
+            margin-top: 20px;
+        }
+
+        #signOutBtn:hover {
+            background-color: #e03333;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 20px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Login</h1>
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button id="loginBtn">Login</button>
+        <div class="error" id="error"></div>
+        <p>Don't have an account? <a href="register.html">Register</a></p>
+        <p><a href="reset_password.html">Forgot Password?</a></p>
+        <button id="googleLoginBtn">Login with Google</button>
+        <button id="signOutBtn">Sign Out</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXmhD-t6oS6vOe_CAFc9DUCoP0EmS_4Dk",
+            authDomain: "pawlink-4136f.firebaseapp.com",
+            projectId: "pawlink-4136f",
+            storageBucket: "pawlink-4136f.firebasestorage.app",
+            messagingSenderId: "87083774223",
+            appId: "1:87083774223:web:50b19b7a6e2831dde98e7a",
+            measurementId: "G-8VE5KFBPLD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+
+        document.getElementById("loginBtn").addEventListener('click', async () => {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    const errorDiv = document.getElementById("error");
+
+    try {
+        const userCredential = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredential.user;
+
+        if (user.emailVerified) {
+            alert("Login successful!");
+            localStorage.setItem('loggedIn', 'true'); // Set loggedIn to true
+            localStorage.setItem('userId', user.uid); // Optionally store the user ID
+            await loadUserCart(user.uid); // Load user's cart
+            document.getElementById("signOutBtn").style.display = "block"; // Show sign-out button
+            window.location.href = "accountinfo.html"; // Redirect after login
+        } else {
+            alert("Please verify your email before logging in.");
+            await auth.signOut(); // Sign out if not verified
+        }
+    } catch (error) {
+        errorDiv.textContent = error.message;
+    }
+});
+
+
+document.getElementById("googleLoginBtn").addEventListener('click', async () => {
+    const provider = new GoogleAuthProvider();
+    try {
+        const result = await signInWithPopup(auth, provider);
+        const user = result.user;
+
+        if (user.emailVerified) {
+            alert("Google login successful!");
+            localStorage.setItem('loggedIn', 'true'); // Set loggedIn to true
+            localStorage.setItem('userId', user.uid); // Optionally store the user ID
+            await loadUserCart(user.uid); // Load user's cart
+            document.getElementById("signOutBtn").style.display = "block"; // Show sign-out button
+            window.location.href = "accountinfo.html"; // Redirect after Google login
+        } else {
+            alert("Please verify your email before logging in.");
+            await auth.signOut(); // Log out if email is not verified
+        }
+    } catch (error) {
+        console.error("Google login error:", error.message);
+        alert("Error with Google login: " + error.message);
+    }
+});
+
+
+document.getElementById("signOutBtn").addEventListener('click', async () => {
+    try {
+        await signOut(auth);
+        alert("Successfully signed out!");
+        localStorage.setItem('loggedIn', 'false'); // Set loggedIn to false
+        localStorage.removeItem('userId'); // Optionally remove the user ID
+        document.getElementById("signOutBtn").style.display = "none"; // Hide sign-out button
+        window.location.href = "login.html"; // Redirect to login page
+    } catch (error) {
+        console.error("Sign-out error: ", error);
+    }
+});
+
+
+        async function loadUserCart(userId) {
+            const userDoc = doc(db, "users", userId);
+            const docSnap = await getDoc(userDoc);
+
+            if (docSnap.exists()) {
+                const cartItems = docSnap.data().cart || [];
+                console.log("Loaded cart items: ", cartItems);
+                // Optionally render the cart items here
+            } else {
+                console.log("No cart found for this user.");
+            }
+        }
+
+        async function saveCartToFirestore(userId, cartItems) {
+            const userDoc = doc(db, "users", userId);
+            await setDoc(userDoc, { cart: cartItems }, { merge: true })
+                .then(() => {
+                    console.log("Cart data saved successfully!");
+                })
+                .catch((error) => {
+                    console.error("Error saving cart: ", error);
+                });
+        }
+    </script>
+
+    <!-- SCROLL UP BUTTON -->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+    
+    <!-- SWIPER JS -->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!-- MAIN JS -->
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+
+    <!-- icons -->
+    <script src="https://unpkg.com/phosphor-icons"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+
+    <!--=============== FAVICON ===============-->
+    <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
+
+    <!--=============== REMIXICONS ===============-->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet">
+
+    <!--=============== SWIPER CSS ===============-->
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+
+    <!--=============== CSS ===============-->
+    <link rel="stylesheet" href="assets/css/styles.css">
+  
+
+    <title>Clothing Shop</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Cart Section */
+        .cart-container {
+            max-width: 1200px;
+            margin: 50px auto;
+            display: flex;
+            gap: 20px;
+            padding: 0 20px;
+        }
+
+        .cart-section, .summary-section {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-section {
+            flex: 3;
+        }
+
+        .summary-section {
+            flex: 1;
+        }
+
+        .cart-header {
+            font-size: 24px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .cart-item {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #ddd;
+    position: relative; /* To allow absolute positioning of the remove button */
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.remove-button {
+    padding: 5px 10px;
+    background-color: #e74c3c;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+    position: absolute; /* Positioning the button to the far right */
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+        .remove-button:hover {
+            background-color: #c0392b;
+        }
+
+        .checkout-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            font-weight: bold;
+            border-radius: 5px;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }/* Base styles remain unchanged */
+
+@media screen and (max-width: 768px) {
+    /* Cart Container */
+    .cart-container {
+        flex-direction: column; /* Stack sections vertically */
+        gap: 20px;
+        padding: 10px;
+    }
+
+    /* Cart Section */
+    .cart-section, .summary-section {
+        flex: 1; /* Make each section take full width */
+        padding: 15px;
+        box-shadow: none; /* Remove shadows for simplicity on mobile */
+        border: 1px solid #ddd; /* Add subtle border for separation */
+    }
+
+    .cart-header {
+        font-size: 20px; /* Slightly smaller header font size */
+    }
+
+    /* Cart Items */
+    .cart-item {
+        grid-template-columns: 1fr; /* Stack cart details vertically */
+        padding: 10px 0;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cart-item-details {
+        margin-bottom: 10px; /* Add spacing between details and price */
+    }
+
+    .total-price {
+        text-align: left; /* Align price to the left for consistency */
+        margin-top: 5px;
+        font-size: 16px;
+        color: #555;
+    }
+
+    .remove-button {
+        position: static; /* Inline with content */
+        margin-top: 10px;
+        align-self: flex-start;
+        width: 100%; /* Full-width button */
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .remove-button:hover {
+        background-color: #e63946;
+    }
+
+    /* Summary Section */
+    .summary-section h2 {
+        font-size: 18px;
+        text-align: center; /* Center the summary header */
+    }
+
+    .summary-section p {
+        font-size: 14px; /* Slightly smaller text */
+    }
+
+    .summary-section .total {
+        font-size: 16px;
+        border-top: 1px solid #ddd;
+    }
+
+    .checkout-button {
+        width: 100%; /* Full-width button */
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    /* Adjust spacing for better readability */
+    .summary-section .info-text {
+        font-size: 12px;
+        text-align: center;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    /* Further adjustments for very small devices */
+    html {
+        font-size: 14px; /* Scale down base font size */
+    }
+
+    .cart-header {
+        font-size: 18px; /* Smaller header size */
+    }
+
+    .total-price, .summary-section p {
+        font-size: 14px; /* Smaller text */
+    }
+
+    .checkout-button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .remove-button {
+        padding: 8px;
+        font-size: 12px;
+    }
+}
+
+
+        .checkout-button:hover {
+            background-color: #218838;
+        }
+
+        .empty-cart {
+            text-align: center;
+            font-size: 18px;
+            color: #888;
+        }
+
+        /* Summary Section */
+        .summary-section h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            font-family: 'Raleway', sans-serif;
+            color: #333;
+        }
+        .cart-item .total-price {
+    font-weight: bold;
+    color: #333;
+    text-align: right; /* Align to the right side */
+}
+
+        .summary-section p {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 16px;
+        }
+
+        .summary-section .info-text {
+            font-size: 14px;
+            color: #777;
+            margin-top: 10px;
+        }
+
+        .summary-section .total {
+            font-weight: bold;
+            border-top: 2px solid #ddd;
+            padding-top: 10px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!--==================== HEADER ====================-->
+    <header class="header" id="header">
+        <nav class="nav container">
+
+
+            <a href="index.html" class="nav__logo">
+                Shop.
+            </a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="index.html" class="nav__link">
+                            <i class="ri-home-line"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="index.html#new" class="nav__link">
+                            <i class="ri-price-tag-3-line"></i>
+                            <span>New</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="index.html#collection" class="nav__link">
+                            <i class="ri-compass-line"></i>
+                            <span>Collection</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="products.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Products</span>
+                        </a>
+                    </li>
+
+                    <li class="nav__item">
+                        <a href="accountinfo.html" class="nav__link">
+                            <i class="ri-t-shirt-line"></i>
+                            <span>Accounts</span>
+                        </a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="cart.html" class="nav__link active-link">
+                            <i class="ph-shopping-cart-bold"></i>
+                            <span>Cart</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Theme change button -->
+            <i class="ri-moon-line change-theme" id="theme-button"></i>
+
+
+        </nav>
+    </header>
+
+    <div class="cart-container">
+        <!-- Cart Section -->
+        <div class="cart-section">
+            <div class="cart-header">Shopping Cart</div>
+            <div id="cart-items"></div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <h2>Order Summary</h2>
+            <p><span>Subtotal</span><span id="subtotal">R 0</span></p>
+            <p><span>Shipping*</span><span id="shipping">R 99.99</span></p>
+            <p class="info-text">*Orders Over R400 Are Free</p>
+            <p class="total"><span>Order Total</span><span id="order-total">R 0</span></p>
+            <button id="checkout-button" class="checkout-button" disabled>Proceed to Checkout</button>
+        </div>
+    </div>
+
+    <form id="payfast-form" action="https://www.payfast.co.za/eng/process" method="POST" style="display:none;">
+        <input type="hidden" name="merchant_id" value="25650623">
+        <input type="hidden" name="merchant_key" value="ioif0f7bjlk3q">
+        <input type="hidden" name="return_url" value="https://yourwebsite.com/success.html">
+        <input type="hidden" name="cancel_url" value="https://yourwebsite.com/cancel.html">
+        <input type="hidden" name="notify_url" value="https://yourwebsite.com/notify.php">
+        <input type="hidden" name="amount" id="amount-field" value="">
+        <input type="hidden" name="item_name" value="Your Cart Items">
+        <input type="hidden" name="m_payment_id" value="UNIQUE_PAYMENT_ID">
+    </form>
+    <script>
+// Load cart items from local storage
+function loadCartItems() {
+    try {
+        const cart = JSON.parse(localStorage.getItem('cart')) || [];
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = "";
+
+        if (cart.length === 0) {
+            cartItemsContainer.innerHTML = '<div class="empty-cart">Your cart is empty!</div>';
+            document.getElementById('checkout-button').disabled = true;
+            document.getElementById('subtotal').textContent = `R 0.00`;
+            document.getElementById('shipping').textContent = `R 0.00`;
+            document.getElementById('order-total').textContent = `R 0.00`;
+            return;
+        }
+
+        let subtotal = 0;
+
+        cart.forEach((item, index) => {
+            try {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+
+                // Parse the product price
+                let price = 0;
+                if (item.productPrice) {
+                    price = parseFloat(item.productPrice.replace('R ', '').replace(',', ''));
+                    if (isNaN(price)) {
+                        console.error(`Invalid price format for ${item.productName}: ${item.productPrice}`);
+                        price = 0;
+                    }
+                } else {
+                    console.error(`Missing price for ${item.productName}`);
+                }
+
+                const total = price; // Calculate the total price for this item
+                subtotal += total; // Add to subtotal
+
+                // Log the item's price and total price
+                console.log(`Item: ${item.productName}, Price: ${price}, Total: ${total}`);
+
+                // Update cart item details in the DOM
+                cartItem.innerHTML = `
+    <div class="cart-item-details">
+        <p><strong>${item.productName}</strong></p>
+        <p>Size: ${item.size} | Color: ${item.color}</p>
+        <p>Shipping Address: ${item.address}, ${item.country}</p>
+        ${item.petsName ? `<p>Pet's Name: ${item.petsName}</p>` : ''}
+        ${item.breed ? `<p>Breed: ${item.breed}</p>` : ''}
+    </div>
+    <div class="total-price">R ${total.toFixed(2)}</div> <!-- Total Price on the Side -->
+    <button class="remove-button" data-index="${index}">Remove</button>
+`;
+
+                cartItemsContainer.appendChild(cartItem);
+            } catch (error) {
+                console.error(`Error processing cart item at index ${index}:`, error);
+            }
+        });
+
+        // Update the order summary
+        updateOrderSummary(subtotal);
+
+        // Add event listeners to remove buttons
+        document.querySelectorAll('.remove-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const index = e.target.dataset.index;
+                removeCartItem(index);
+            });
+        });
+
+    } catch (error) {
+        console.error('Error loading cart items from localStorage:', error);
+        const cartItemsContainer = document.getElementById('cart-items');
+        cartItemsContainer.innerHTML = '<div class="error-message">Failed to load cart. Please try again later.</div>';
+    }
+}
+
+// Update the order summary
+function updateOrderSummary(subtotal) {
+    document.getElementById('subtotal').textContent = `R ${subtotal.toFixed(2)}`;
+    
+    // Calculate shipping
+    const shipping = subtotal >= 400 ? 0 : 10;
+    document.getElementById('shipping').textContent = `R ${shipping.toFixed(2)}`;
+    
+    // Calculate total
+    const total = subtotal + shipping;
+    document.getElementById('order-total').textContent = `R ${total.toFixed(2)}`;
+
+    // Enable or disable checkout button based on cart content
+    document.getElementById('checkout-button').disabled = subtotal === 0;
+}
+document.getElementById('checkout-button').addEventListener('click', () => {
+    // Get the Order Total value
+    const orderTotalElement = document.getElementById('order-total');
+    const totalAmount = parseFloat(orderTotalElement.textContent.replace('R ', '').replace(',', ''));
+
+    // Save the total amount in localStorage to pass it to the PayFast checkout page
+    localStorage.setItem('orderTotal', totalAmount.toFixed(2));
+
+    // Redirect to the PayFast checkout page
+    window.location.href = 'payfast-checkout.html'; // Replace with your PayFast form's URL
+});
+
+
+ // Checkout button click event
+ document.getElementById('checkout-button').addEventListener('click', () => {
+            // Get the Order Total value
+            const orderTotalElement = document.getElementById('order-total');
+            const totalAmount = parseFloat(orderTotalElement.textContent.replace('R ', '').replace(',', ''));
+
+            // Set the total amount to the PayFast form's hidden field
+            document.getElementById('amount-field').value = totalAmount.toFixed(2);
+
+            // Submit the PayFast form
+            document.getElementById('payfast-form').submit();
+        });
+
+
+        function removeCartItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            loadCartItems();
+        }
+
+        // Load items on page load
+        document.addEventListener('DOMContentLoaded', loadCartItems);
+    </script>
+
+    <!--========== SCROLL UP ==========-->
+    <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+    </a>
+    
+    <!--=============== SCROLLREVEAL ===============-->
+    <script src="assets/js/scrollreveal.min.js"></script>
+
+    <!--=============== SWIPER JS ===============-->
+    <script src="assets/js/swiper-bundle.min.js"></script>
+
+    <!--=============== MAIN JS ===============-->
+    <script src="assets/js/main.js"></script>
+    
+</body>
+</html>

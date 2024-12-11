@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+    <script src="https://unpkg.com/phosphor-icons"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="assets/css/swiper-bundle.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <script defer src="javascript/shoppingcart.js"></script>
+    <title>Register</title>
+
+    <style>
+        /* Reset default margin and padding */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Center the register form */
+        .login-container {
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        /* Title */
+        .login-container h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            font-family: 'Raleway', sans-serif;
+        }
+
+        /* Input Fields */
+        input[type="email"], input[type="password"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #00ffcc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        /* Button Styles */
+        button {
+            background-color: #00ffcc;
+            color: black;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #1dffbb;
+        }
+
+        /* Error Message */
+        .error {
+            color: red;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        /* Links */
+        p a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-size: 14px;
+        }
+
+        p a:hover {
+            text-decoration: underline;
+        }
+
+        /* Google login button */
+        #googleLoginBtn {
+            background-color: #4285F4;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            margin-top: 15px;
+        }
+
+        #googleLoginBtn:hover {
+            background-color: #357ae8;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .login-container {
+                padding: 20px;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-container">
+        <h1>Register</h1>
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="password" placeholder="Password" required />
+        <button id="registerBtn">Register</button>
+        <div class="error" id="error"></div>
+        <p>Already have an account? <a href="login.html">Login</a></p>
+
+        <!-- Google Register Button (Optional) -->
+        <button id="googleLoginBtn">Register with Google</button>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-app.js";
+        import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.11.1/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBXmhD-t6oS6vOe_CAFc9DUCoP0EmS_4Dk",
+            authDomain: "pawlink-4136f.firebaseapp.com",
+            projectId: "pawlink-4136f",
+            storageBucket: "pawlink-4136f.firebasestorage.app",
+            messagingSenderId: "87083774223",
+            appId: "1:87083774223:web:50b19b7a6e2831dde98e7a",
+            measurementId: "G-8VE5KFBPLD"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Regular Register (email/password)
+        document.getElementById("registerBtn").addEventListener('click', async () => {
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const errorDiv = document.getElementById("error");
+
+            try {
+                await createUserWithEmailAndPassword(auth, email, password);
+                alert("Registration successful!");
+                window.location.href = "login.html"; // Redirect to login after successful registration
+            } catch (error) {
+                errorDiv.textContent = error.message;
+            }
+        });
+
+        // Google Registration
+        document.getElementById("googleLoginBtn").addEventListener('click', async () => {
+            const provider = new GoogleAuthProvider();
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const user = result.user;
+
+                if (user.emailVerified) {
+                    alert("Google registration successful!");
+                    window.location.href = "accountinfo.html"; // Redirect after Google registration
+                } else {
+                    alert("Please verify your email before logging in.");
+                }
+            } catch (error) {
+                console.error("Google registration error:", error.message);
+                alert("Error with Google registration: " + error.message);
+            }
+        });
+    </script>
+</body>
+</html>

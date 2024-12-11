@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script defer src="javascript/shoppingcart.js"></script>
+
+  <link rel="stylesheet" href="css/style.css" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Rad Bikes is the best bike shop in the northwest!">
+
+  <!-- Favicon -->
+  <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png" />
+  <link rel="manifest" href="images/favicon/site.webmanifest" />
+
+  <!-- icons -->
+  <script src="https://unpkg.com/phosphor-icons"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400&family=Raleway&family=Roboto:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Rock+Salt&display=swap"
+    rel="stylesheet" />
+
+  <!-- style sheets -->
+  <link rel="stylesheet" href="css/style.css" />
+
+    <!-- scripts -->
+    <script defer src="javascript/slider.js"></script>
+    <script defer src="javascript/productData.js"></script>
+    <script defer src="javascript/shoppingcart.js"></script>
+    <script defer src="javascript/shop.js"></script>
+    <script defer src="javascript/navigateHome.js"></script>
+    <script defer src="javascript/main.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Page</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f1f1f1;
+    }
+
+    .section--product-page {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .product-page-images {
+      flex: 1 1 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (min-width: 768px) {
+      .product-page-images {
+        flex: 1 1 40%;
+      }
+    }
+
+    .product-page-image {
+      max-width: 100%;
+      border-radius: 8px;
+      object-fit: cover;
+    }
+
+    .product-page-thumbnail {
+      max-width: 80px;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 8px;
+    }
+
+    .product-page-thumbnail:hover,
+    .product-page-thumbnail.active {
+      border-color: #007bff;
+    }
+
+    .product-page-info {
+      flex: 1 1 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    @media (min-width: 768px) {
+      .product-page-info {
+        flex: 1 1 50%;
+      }
+    }
+
+    .product-page-name {
+      font-size: 24px;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .product-page-price {
+      font-size: 20px;
+      color: #2e8b57;
+    }
+
+    .product-page-phrase {
+      font-size: 16px;
+      color: #555;
+    }
+
+    .size-select, .color-select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .product-page-add {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      cursor: not-allowed;
+      opacity: 0.6;
+    }
+
+    .product-page-add.enabled {
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    .tabs {
+      margin: 20px 0;
+      border-top: 1px solid #ddd;
+    }
+
+    .tab {
+      margin: 20px 0;
+      cursor: pointer;
+      font-size: 18px;
+      padding: 10px;
+      border-bottom: 2px solid transparent;
+    }
+
+    .tab:hover, .tab.active {
+      border-bottom: 2px solid #007bff;
+    }
+
+    .tab-content {
+      display: none;
+      font-size: 16px;
+      color: #555;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    /* Reviews Section */
+    .reviews-list {
+      margin-top: 30px;
+      padding: 0 15px;
+      max-width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+      width: 90%;
+    }
+
+    .review-card {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 20px;
+      padding: 20px;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .review-content {
+      flex: 1 1 70%;
+    }
+
+    .review-rating {
+      color: #FFD700;
+      font-size: 18px;
+    }
+
+    .review-title {
+      font-weight: bold;
+      margin: 10px 0;
+    }
+
+    .review-text {
+      color: #555;
+    }
+
+    .review-date {
+      font-size: 12px;
+      color: #aaa;
+      margin-top: 10px;
+    }
+
+    .review-author-info {
+      flex: 1 1 30%;
+      font-size: 14px;
+      color: #555;
+      border-left: 1px solid #ddd;
+      padding-left: 20px;
+    }
+
+    /* Title and Write Review Button Flex */
+    .reviews-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .custm {
+      font-size: 30px;
+      margin: 0;
+      position: relative;
+      left: 67px;
+    }
+
+    .review-page-button {
+      padding: 10px 20px;
+      font-size: 16px;
+      color: #fff;
+      background-color: #007bff;
+      border: none;
+      border-radius: 4px;
+      text-decoration: none;
+      text-align: center;
+      position: relative;
+      right: 67px;
+    }
+
+    .review-page-button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="main-nav-wrapper">
+      <a href="index.html" class="logo">
+        <span class="rad">R<span class="a">a</span> &nbsp;D</span>BIKES
+      </a>
+      <button class="mobile-nav-btn-wrapper">
+        <div class="mobile-nav-btn">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+      </button>
+
+      <nav class="main-nav">
+        <a class="header-link" href="Shop.index">SHOP</a>
+        <a class="header-link" href="Shop/Mens">MENS</a>
+        <a class="header-link" href="Shop/Womens">WOMENS</a>
+        <a class="header-link" href="Shop/Kids">KIDS</a>
+
+      </nav>
+      
+      <div class="shopping-cart">
+        <a class="account" href="account.html">ACCOUNT</a>
+       
+      </div>
+    </div>
+  </header>
+
+
+
+  
+  <main>
+    <section class="section--product-page">
+      <!-- Product Images -->
+      <div class="product-page-images">
+        <img id="main-image" class="product-page-image" src="https://via.placeholder.com/400" alt="Sample Product">
+        <div>
+          <img class="product-page-thumbnail active" src="https://via.placeholder.com/400" alt="Thumbnail 1">
+          <img class="product-page-thumbnail" src="https://via.placeholder.com/400/0000FF" alt="Thumbnail 2">
+          <img class="product-page-thumbnail" src="https://via.placeholder.com/400/FF0000" alt="Thumbnail 3">
+        </div>
+      </div>
+
+      <!-- Product Info -->
+      <div class="product-page-info">
+        <h3 class="product-page-name">Sample Product</h3>
+        <p class="product-page-price">R 999.99</p>
+        <p class="product-page-phrase">A brief description of the product goes here.</p>
+
+        <!-- Size Selector -->
+        <label for="size-select">Select Size:</label>
+        <select id="size-select" class="size-select">
+          <option value="">-- Select Size --</option>
+          <option value="small">Small</option>
+          <option value="medium">Medium</option>
+          <option value="large">Large</option>
+          <option value="extra-large">Extra Large</option>
+        </select>
+
+        <!-- Color Selector -->
+        <label for="color-select">Select Color:</label>
+        <select id="color-select" class="color-select">
+          <option value="">-- Select Color --</option>
+          <option value="red">Red</option>
+          <option value="blue">Blue</option>
+          <option value="green">Green</option>
+        </select>
+
+        <!-- Add to Cart Button -->
+        <button id="add-to-cart" class="product-page-add" disabled>Add to Cart</button>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <div id="reviews" class="tab-content active">
+      <div class="reviews-header">
+        <h3 class="custm">Customer Reviews</h3>
+        <a href="review.html" class="review-page-button">Write a Review</a>
+      </div>
+      <div class="reviews-list">
+        <div class="review-card">
+          <div class="review-content">
+            <div class="review-rating">★★★★★</div>
+            <p class="review-title">Comfortable, practical, tip-top</p>
+            <p class="review-text">I am a nurse and I love wearing these shoes at work.</p>
+            <p class="review-date">January 9, 2023</p>
+          </div>
+          <div class="review-author-info">
+            <p><strong>Kristin</strong> (Verified Buyer)</p>
+            <p>Typical Size: EU 37</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // JavaScript for swapping images
+    const thumbnails = document.querySelectorAll('.product-page-thumbnail');
+    const mainImage = document.getElementById('main-image');
+
+    thumbnails.forEach(thumbnail => {
+      thumbnail.addEventListener('click', () => {
+        // Remove 'active' class from all thumbnails
+        thumbnails.forEach(t => t.classList.remove('active'));
+        
+        // Add 'active' class to clicked thumbnail
+        thumbnail.classList.add('active');
+        
+        // Change the main image source to the clicked thumbnail's source
+        mainImage.src = thumbnail.src;
+      });
+    });
+  </script>
+
+<script>
+  const sizeSelect = document.getElementById('size-select');
+  const colorSelect = document.getElementById('color-select');
+  const addToCartButton = document.getElementById('add-to-cart');
+
+  function updateAddToCartButton() {
+    if (sizeSelect.value && colorSelect.value) {
+      addToCartButton.disabled = false;
+      addToCartButton.classList.add('enabled');
+    } else {
+      addToCartButton.disabled = true;
+      addToCartButton.classList.remove('enabled');
+    }
+  }
+
+  sizeSelect.addEventListener('change', updateAddToCartButton);
+  colorSelect.addEventListener('change', updateAddToCartButton);
+</script>
+</body>
+</html>
